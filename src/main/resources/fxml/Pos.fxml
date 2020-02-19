@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" stylesheets="@../styles/pos.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.pos.PosController">
+  <children>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="760.0" styleClass="hbox-top-background">
+         <children>
+            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="560.0" spacing="5.0" styleClass="control-background" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="menu" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="hamburger-button">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#logoutAction" prefHeight="30.0" prefWidth="30.0" styleClass="logout-button">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="760.0">
+               <children>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="240.0" styleClass="product-vbox" HBox.hgrow="NEVER">
+                     <children>
+                        <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="寻找物品" styleClass="search-field">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView fx:id="productTableView" layoutX="14.0" layoutY="45.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="productColumn" editable="false" prefWidth="75.0" text="物品" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <styleClass>
+                              <String fx:value="table" />
+                              <String fx:value="accessible-tableview" />
+                           </styleClass>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="520.0" styleClass="menu-vbox" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <TableView fx:id="listTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="itemColumn" prefWidth="125.0" text="物品" />
+                              <TableColumn fx:id="priceColumn" prefWidth="75.0" text="价格" />
+                              <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="数量" />
+                              <TableColumn fx:id="totalColumn" prefWidth="75.0" text="总价" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="table" />
+                              <String fx:value="accessible-tableview" />
+                           </styleClass>
+                        </TableView>
+                        <HBox styleClass="selection-hbox">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="300.0" styleClass="left-product-vbox" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <GridPane fx:id="detailsGridPane" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="280.0" styleClass="left-grid" VBox.vgrow="ALWAYS">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="180.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="-Infinity" prefHeight="45.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="productField" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" GridPane.columnIndex="1" GridPane.valignment="CENTER">
+                                             <GridPane.margin>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <TextField fx:id="priceField" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                             <GridPane.margin>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <Label styleClass="accessible-label" text="物品" GridPane.halignment="LEFT">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label styleClass="accessible-label" text="单价" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label styleClass="accessible-label" text="数量" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label styleClass="accessible-label" text="介绍" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextArea fx:id="descriptionArea" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                          <HBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="35.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                             <children>
+                                                <TextField fx:id="quantityField" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="80.0" HBox.hgrow="SOMETIMES" />
+                                                <Label fx:id="quantityLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" styleClass="accessible-label" text="库存:" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <CheckBox fx:id="returnProductCheckbox" mnemonicParsing="false" text="Return" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="2.0" />
+                                             </GridPane.margin>
+                                          </CheckBox>
+                                          <TextField fx:id="invoiceIdField" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#findInvoice" prefHeight="35.0" promptText="Invoice Id" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <GridPane.margin>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </GridPane>
+                                    <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="280.0" spacing="10.0" styleClass="left-hbox-buttons" VBox.vgrow="NEVER">
+                                       <children>
+                                          <Button fx:id="addButton" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#addAction" prefHeight="31.0" prefWidth="80.0" styleClass="accessible-button" text="加入" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="removeButton" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeAction" prefHeight="31.0" prefWidth="80.0" styleClass="accessible-button" text="取消" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="resetButton" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetAction" prefHeight="31.0" prefWidth="80.0" styleClass="accessible-button" text="重设" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" styleClass="right-product-vbox" HBox.hgrow="NEVER">
+                                 <children>
+                                    <GridPane fx:id="paymentGrid" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" styleClass="right-grid" VBox.vgrow="ALWAYS">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="100.0" prefWidth="111.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="124.0" prefWidth="124.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label minHeight="-Infinity" prefHeight="25.0" styleClass="accessible-label" text="总价" GridPane.halignment="RIGHT">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                 
+                                                <Label minHeight="-Infinity" prefHeight="25.0" styleClass="accessible-label" text="税" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label minHeight="-Infinity" prefHeight="25.0" styleClass="accessible-label" text="减价" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label minHeight="-Infinity" prefHeight="25.0" styleClass="accessible-label" text="需付" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField fx:id="subTotalField" alignment="CENTER_RIGHT" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="0.00" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <TextField fx:id="vatField" alignment="CENTER_RIGHT" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <TextField fx:id="discountField" alignment="CENTER_RIGHT" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <TextField fx:id="netPayableField" alignment="CENTER_RIGHT" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <CheckBox fx:id="voucherCheckbox" mnemonicParsing="false" text="Voucher" GridPane.rowIndex="3" />
+                                          <TextField fx:id="voucherTextfield" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#findVoucher" prefHeight="40.0" prefWidth="120.0" promptText="Code" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <Label fx:id="voucherAmountLabel" prefHeight="21.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </GridPane>
+                                    <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" styleClass="right-hbox-buttons">
+                                       <children>
+                                          <Button fx:id="paymentButton" alignment="CENTER" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentAction" prefHeight="40.0" prefWidth="150.0" styleClass="accessible-button" text="Payment" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="drawer" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="200.0" translateX="-200.0" />
+         </children>
+      </StackPane>
+  </children>
+</VBox>

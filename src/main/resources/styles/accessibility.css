@@ -1,0 +1,38 @@
+
+.accessible-tableview{
+    -fx-font-size: 20px;
+}
+
+.double-cell {
+  -fx-alignment: CENTER-RIGHT;
+}
+
+.integer-cell{
+  -fx-alignment: CENTER;
+}
+.centered-cell{
+  -fx-alignment: CENTER;
+}
+
+.accessible-label{
+    -fx-font-size: 18px;
+}
+
+.accessible-button{
+    -fx-font-size: 20px;
+}
+
+.accessible-textfield{
+    -fx-font-size: 20px;
+}
+.accessible-combobox{
+    -fx-font-size: 20px;
+}
+
+.accessible{
+    -fx-font-size: 20px;
+}
+
+.titled-pane > .title {
+    -fx-font-size: 20px;
+}

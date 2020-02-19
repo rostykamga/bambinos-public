@@ -1,0 +1,111 @@
+.hbox-header {
+    /*-fx-background-color: #c0c0c0;*/
+    -fx-background-color: rgba(23, 169, 168, 1);
+    -fx-text-fill: rgba(51, 51, 51, .8);
+    -fx-font-size: 18px;
+    -fx-font-family: cursive;
+}
+
+.hbox-title {
+    -fx-text-fill: rgba(51, 51, 51, .8);
+    -fx-font-size: 18px;
+    -fx-font-family: cursive;
+}
+
+.search-field {
+    -fx-background-color: rgba(23, 169, 168, 1);
+    -fx-text-fill: rgba(255, 255, 247, 1);
+    
+    -fx-background-image: url('../images/search.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right center;
+    -fx-font-size: 18px;
+    -fx-background-size: 12%;
+}
+
+.vbox-panel {
+
+    -fx-background-color: wheat;
+    /*-fx-background-color: rgba(238, 238, 238, 1);*/
+}
+
+
+.logout-button {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 80%;
+    -fx-background-position: center;
+    -fx-background-color: rgba(23, 169, 168, 1);
+    -fx-background-image: url("../images/logout.png");
+}
+
+.logout-button:hover {
+    -fx-background-color: rgba(255, 255, 247, .2);
+}
+
+.main-button-bar {
+    -fx-background-color: rgba(51, 50, 68, 1);
+}
+
+.main-button {
+
+    -fx-text-fill: rgba(93, 93, 119, 1);
+    -fx-font-size: 12px;
+    -fx-background-color: rgba(51, 50, 68, 1);
+    -fx-border-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center-left;
+}
+
+.main-button:hover {
+
+    -fx-text-fill: rgba(156, 156, 168, 1);
+    -fx-background-color: orange;
+    
+} 
+
+.section-header-label{
+    -fx-text-fill: white;
+}
+.subsection-header-label{
+    -fx-text-fill: yellow;
+    -fx-font-size: 14;
+}
+
+.section-header{
+    -fx-background-color: rgba(0, 88, 122, 1);
+}
+
+.subsection-header{
+    -fx-background-color: rgba(23, 169, 168, 1);
+}
+
+/*.tree-view, .tree-cell {
+    -fx-background-color: wheat ;
+}*/
+
+.partial-total{
+    -fx-font-weight: bold;
+    -fx-font-size:22;
+    -fx-background-color: yellow;
+    -fx-text-fill: #9b870c;
+}
+
+.total{
+    -fx-font-weight: bold;
+    -fx-font-size:22;
+    -fx-background-color: lime;
+    -fx-text-fill: darkgreen;
+}
+
+*{
+    -fx-font-size: 20;
+}
+
+
+
+
+

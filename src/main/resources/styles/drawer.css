@@ -1,0 +1,36 @@
+.sidebar-menu {
+    -fx-background-color: rgba(51, 50, 68, 1);
+}
+
+.menu-buttons {
+
+    -fx-text-fill: rgba(93, 93, 119, 1);
+    -fx-font-size: 18px;
+    -fx-background-color: rgba(51, 50, 68, 1);
+    -fx-border-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center-left;
+}
+
+.menu-buttons:hover {
+
+    -fx-text-fill: rgba(156, 156, 168, 1);
+    -fx-background-color: rgba(44, 43, 61, 1);
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: transparent transparent transparent rgba(29, 114, 107, 1);
+} 
+
+.menu-buttons-selected {
+
+    -fx-text-fill: rgba(156, 156, 168, 1);
+    -fx-background-color: rgba(44, 43, 61, 1);
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: transparent transparent transparent rgba(29, 114, 107, 1);
+}
+

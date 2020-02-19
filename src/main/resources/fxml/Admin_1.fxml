@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lesbambinos.controller.admin.AdminController">
+   <children>
+      <BorderPane VBox.vgrow="ALWAYS">
+         <top>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" styleClass="hbox-header" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="pageName" styleClass="hbox-title">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="userLabel" text="Label">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#logoutAction" prefHeight="30.0" prefWidth="30.0" styleClass="logout-button">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox fx:id="drawerContainer" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vbox-panel" BorderPane.alignment="CENTER">
+               <children>
+                  <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                      <Tab text="Structure de l'établissement">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styles/admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                         <children>
+                                                            <Label styleClass="section-header-label" text="Sections">
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <ListView fx:id="sectionsList" VBox.vgrow="ALWAYS" />
+                                                      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                         <children>
+                                                            <Button fx:id="addSectionButton" mnemonicParsing="false" onAction="#addSectionAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/add.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="editSectionButton" mnemonicParsing="false" onAction="#editSectionAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/edit.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="deleteSectionButton" mnemonicParsing="false" onAction="#deleteSectionAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/remove.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox layoutX="860.0" layoutY="20.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                         <children>
+                                                            <Label styleClass="section-header-label" text="Cycles">
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <ListView fx:id="cyclesList" VBox.vgrow="ALWAYS" />
+                                                      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                         <children>
+                                                            <Button fx:id="addCycleButton" mnemonicParsing="false" onAction="#addCycleAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/add.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="editCycleButton" mnemonicParsing="false" onAction="#editCycleAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/edit.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="deleteCycleButton" mnemonicParsing="false" onAction="#deleteCycleAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/remove.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox layoutX="1118.0" layoutY="20.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                         <children>
+                                                            <Label styleClass="section-header-label" text="Niveaux">
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <ListView fx:id="levelsList" VBox.vgrow="ALWAYS" />
+                                                      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                         <children>
+                                                            <Button fx:id="addLevelButton" mnemonicParsing="false" onAction="#addLevelAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/add.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="editLevelButton" mnemonicParsing="false" onAction="#editLevelAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/edit.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="deleteLevelButton" mnemonicParsing="false" onAction="#deleteLevelAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/remove.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox layoutX="1376.0" layoutY="20.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                         <children>
+                                                            <Label styleClass="section-header-label" text="Classes">
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <ListView fx:id="classesList" VBox.vgrow="ALWAYS" />
+                                                      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                         <children>
+                                                            <Button fx:id="addClassButton" mnemonicParsing="false" onAction="#addClassAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/add.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="editClassButton" mnemonicParsing="false" onAction="#editClassAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/edit.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button fx:id="deleteClassButton" mnemonicParsing="false" onAction="#deleteClassAction" styleClass="main-button">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../images/remove.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab fx:id="tuitionPane" text="Gestion des frais">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                   <children>
+                                                      <Label styleClass="section-header-label" text="Frais et tranches" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefHeight="30.0" prefWidth="200.0" styleClass="subsection-header">
+                                                               <children>
+                                                                  <Label styleClass="subsection-header-label" text="Frais Exigibles">
+                                                                     <HBox.margin>
+                                                                        <Insets left="10.0" />
+                                                                     </HBox.margin>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <ListView fx:id="tuitionsListView" VBox.vgrow="ALWAYS" />
+                                                            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                               <children>
+                                                                  <Button fx:id="addTuitionButton" mnemonicParsing="false" onAction="#addTuitionAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/add.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Button fx:id="editTuitionButton" mnemonicParsing="false" onAction="#editTuitionAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/edit.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Button fx:id="deleteTuitionButton" mnemonicParsing="false" onAction="#deleteTuitionAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/remove.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefHeight="30.0" prefWidth="200.0" styleClass="subsection-header">
+                                                               <children>
+                                                                  <Label styleClass="subsection-header-label" text="Tranches">
+                                                                     <HBox.margin>
+                                                                        <Insets left="10.0" />
+                                                                     </HBox.margin>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <ListView fx:id="tuitionTrenchesListView" VBox.vgrow="ALWAYS" />
+                                                            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                               <children>
+                                                                  <Button fx:id="addTrenchButton" mnemonicParsing="false" onAction="#addTrenchAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/add.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Button fx:id="editTrenchButton" mnemonicParsing="false" onAction="#editTrenchAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/edit.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Button fx:id="deleteTrenchButton" mnemonicParsing="false" onAction="#deleteTrenchAction" styleClass="main-button">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/remove.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="section-header">
+                                                   <children>
+                                                      <Label styleClass="section-header-label" text="Frais applicables par niveaux" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefHeight="30.0" prefWidth="200.0" styleClass="subsection-header">
+                                                               <children>
+                                                                  <Label styleClass="subsection-header-label" text="Structure">
+                                                                     <HBox.margin>
+                                                                        <Insets left="10.0" />
+                                                                     </HBox.margin>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <TreeView fx:id="structureTreeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <VBox.margin>
+                                                                  <Insets top="2.0" />
+                                                               </VBox.margin>
+                                                            </TreeView>
+                                                            <HBox alignment="CENTER_RIGHT" minHeight="40.0" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefHeight="30.0" prefWidth="200.0" styleClass="subsection-header">
+                                                               <children>
+                                                                  <Label styleClass="subsection-header-label" text="Frais Applicables">
+                                                                     <HBox.margin>
+                                                                        <Insets left="10.0" />
+                                                                     </HBox.margin>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <VBox fx:id="applicableTuitionVbox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                                                            <HBox alignment="CENTER_RIGHT" minHeight="40.0" prefHeight="40.0" prefWidth="200.0" spacing="5.0" styleClass="main-button-bar">
+                                                               <children>
+                                                                  <Button mnemonicParsing="false" styleClass="main-button" text="Enregistrer">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/save.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                               </children></HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TabPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</VBox>
