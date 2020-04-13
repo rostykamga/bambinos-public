@@ -8,7 +8,9 @@ package com.lesbambinos.util;
 import com.lesbambinos.entity.Subsystem;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,17 @@ public class AppUtils {
             return false;
         try{
             return Integer.parseInt(s) > 0;
+        }
+        catch(NumberFormatException ex){
+            return false;
+        }
+    }
+    
+    public static boolean isValidPositiveOrNullInteger(String s){
+        if(isEmptyOrNullString(s))
+            return false;
+        try{
+            return Integer.parseInt(s) >= 0;
         }
         catch(NumberFormatException ex){
             return false;
@@ -199,5 +212,14 @@ public class AppUtils {
         String prefix = section.getRegprefix();
         String middle = ""+LocalDate.now().getYear();
         return middle.substring(2, middle.length()) + prefix  + String.format("%04d", sequence);
+    }
+    
+    public static byte[] file2ByteArray(File file){
+        try {
+            return  Files.readAllBytes(file.toPath());
+        } catch (IOException ex) {
+            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

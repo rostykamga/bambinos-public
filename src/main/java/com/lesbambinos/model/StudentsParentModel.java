@@ -21,7 +21,7 @@ public class StudentsParentModel extends AbstractEntityModel<StudentsParent> {
         session.beginTransaction();
 
         List<StudentsParent> studentsParents = (List<StudentsParent>) session.createCriteria(StudentsParent.class)
-                .add(Restrictions.eq("pk.student.id", student.getId())).list();
+                .add(Restrictions.eq("student.id", student.getId())).list();
 
         session.beginTransaction().commit();
         studentsParents.stream().forEach(list::add);
@@ -37,7 +37,7 @@ public class StudentsParentModel extends AbstractEntityModel<StudentsParent> {
         session.beginTransaction();
 
         List<StudentsParent> studentsParents = (List<StudentsParent>) session.createCriteria(StudentsParent.class)
-                .add(Restrictions.eq("pk.parent.id", parent.getId())).list();
+                .add(Restrictions.eq("parent.id", parent.getId())).list();
 
         session.beginTransaction().commit();
         studentsParents.stream().forEach(list::add);
@@ -50,7 +50,6 @@ public class StudentsParentModel extends AbstractEntityModel<StudentsParent> {
         StudentsParent previous = (StudentsParent)prev;
         StudentsParent updated = (StudentsParent)upd;
         
-        previous.setFulldescription(updated.getFulldescription());
         previous.setParent(updated.getParent());
         previous.setParentRole(updated.getParentRole());
         previous.setStudent(updated.getStudent());

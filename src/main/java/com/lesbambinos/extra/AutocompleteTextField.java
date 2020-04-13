@@ -133,7 +133,7 @@ public class AutocompleteTextField extends TextField {
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
         Text textFilter = new Text(text.substring(filterIndex,  filterIndex + filter.length())); //instead of "filter" to keep all "case sensitive"
         textFilter.setFill(Color.ORANGE);
-        textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));  
+        textFilter.setFont(Font.font(textFilter.getFont().getFamily(), FontWeight.BOLD, textFilter.getFont().getSize()));
         return new TextFlow(textBefore, textFilter, textAfter);
     }   
 }

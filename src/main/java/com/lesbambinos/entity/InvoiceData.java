@@ -13,26 +13,26 @@ import java.util.List;
  */
 public class InvoiceData {
     
-    private Registration registration;
+    private Student student;
     private double total;
     private double netpayable;
     private List<InstallmentPerLevel> installementsList;
     private Voucher voucher;
 
-    public InvoiceData(Registration registration, double total, double netpayable, List<InstallmentPerLevel> installementsList, Voucher voucher) {
-        this.registration = registration;
+    public InvoiceData(Student student, double total, double netpayable, List<InstallmentPerLevel> installementsList, Voucher voucher) {
+        this.student = student;
         this.total = total;
         this.netpayable = netpayable;
         this.installementsList = installementsList;
         this.voucher = voucher;
     }
 
-    public Registration getRegistration() {
-        return registration;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setRegistration(Registration registration) {
-        this.registration = registration;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public double getTotal() {

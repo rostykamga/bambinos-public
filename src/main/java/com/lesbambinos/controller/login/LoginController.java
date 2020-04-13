@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
             try{
                 BambinosSecurityManager.authenticate(username, password);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
-                windows("/fxml/Home.fxml", "Accueil");
+                windows("/fxml/MainWindow.fxml", "Accueil");
             }
             catch(InvalidCredentialsException | UnknownUserException ex){
                 errorLabel.setText(ex.getMessage());

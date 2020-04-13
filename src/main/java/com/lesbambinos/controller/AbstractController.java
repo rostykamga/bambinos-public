@@ -8,13 +8,14 @@ package com.lesbambinos.controller;
 import com.lesbambinos.AppException;
 import com.lesbambinos.auth.AuthenticatedEmployee;
 import com.lesbambinos.auth.BambinosSecurityManager;
-import com.lesbambinos.controller.drawer.DrawerController;
+import com.lesbambinos.config.AppConfig;
 import com.lesbambinos.controller.login.LoginController;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Stack;
+import javafx.animation.TranslateTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -28,10 +29,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 /**
  *
@@ -41,14 +44,24 @@ public abstract class AbstractController implements Initializable{
     
     @FXML protected VBox progressPane;
     @FXML protected Button menu;
-    @FXML protected VBox drawerContainer;
+    @FXML protected VBox drawer;
     @FXML protected Label userLabel, pageName;
+    @FXML protected AnchorPane contentPane;
+    
+    @FXML public Button homeButton;
+    @FXML public Button adminButton;
+    @FXML public Button classesButton;
+    @FXML public Button registrationButton;
+    @FXML public Button cashButton;
+    @FXML public Button staffButton;
+    @FXML public Button reportButton;
+    @FXML public Button configButton;
     
     protected double xOffset = 0;
     protected double yOffset = 0;
-    protected DrawerController drawerController;
     protected AuthenticatedEmployee currentUser;
     protected ResourceBundle R;
+    protected BooleanProperty dataloading = new SimpleBooleanProperty(false);
     
     /**
      * Initializes the controller class.
@@ -58,28 +71,7 @@ public abstract class AbstractController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         R = rb;
-        //loads the drawer
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Drawer.fxml"));
-            VBox root = (VBox)loader.load();
-            drawerController = loader.getController();
-            
-            VBox.setVgrow(root, Priority.ALWAYS);
-            drawerContainer.getChildren().clear();
-            drawerContainer.getChildren().add(root);
-            
-            //checkPermissions();
-                        
-        } catch (IOException ex) {
-            Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-//        catch (NoSuchFieldException ex) {
-//            Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        if(userLabel != null)
-            userLabel.setText(BambinosSecurityManager.getAuthenticatedEmployee().getEmployeeEntity().getUserName());
                 
-        pageName.setText(getPageName());
         initUI();
         final Task<Object> dataLoader = new Task<Object>() {
             @Override
@@ -123,10 +115,119 @@ public abstract class AbstractController implements Initializable{
 //        SecurityManager.controlAceessRight(drawerController.configButton, currentUser.hasPermission(Permissions.AdminRigth));
     }
     
+     protected void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove("hamburger-button");
+                menu.getStyleClass().add("open-menu");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove("open-menu");
+                menu.getStyleClass().add("hamburger-button");
+            }
+        });
+    }
+    
     protected abstract Object loadData();
     protected abstract void initUI();
     protected abstract void dataLoaded(Object data);
     protected abstract String getPageName();
+    
+    @FXML
+    public void homeAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Home.fxml", "Accueil", event);
+    }
+    
+    @FXML
+    public void adminAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Admin.fxml", "Admin", event);
+    }
+    
+    @FXML
+    public void classesAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Classe.fxml", "Classes", event);
+    }
+    
+    @FXML
+    public void registrationAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Registration.fxml", "Inscriptions", event);
+    }
+
+    @FXML
+    public void cashAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Caisse.fxml", "Caisse", event);
+    }
+    
+    @FXML
+    public void staffAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Employee.fxml", "Personnel", event);
+    }
+
+    @FXML
+    public void reportAction(ActionEvent event) throws Exception {
+        
+        windows("/fxml/Report.fxml", "Etats", event);
+    }
+    
+    @FXML
+    public void configAction(ActionEvent event) throws Exception {
+        Window s = ((Button)event.getSource()).getScene().getWindow();
+        AppConfig.showConfigPanel(false, s);
+    }
+
+    
+    private Node getChildrenById(Parent parent, String childId){
+        Stack<Parent> allNodes = new Stack();
+        allNodes.add(parent);
+        
+        while(!allNodes.isEmpty()){
+            Parent p = allNodes.pop();
+            if(childId.equalsIgnoreCase(p.getId()))
+                return p;
+            else{
+                for(Node node : p.getChildrenUnmodifiable()){
+                    if(node instanceof Parent)
+                        allNodes.push((Parent)node);
+                }
+            }
+        }
+        return null;
+    }
+    
+    protected void windows(String path, String title, ActionEvent event) throws Exception {
+        ResourceBundle bundle = ResourceBundle.getBundle("i18n.strings");
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent parent = FXMLLoader.load(getClass().getResource(path), bundle);
+        Scene scene = new Scene(parent, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image("/images/logo.png"));
+        stage.setScene(scene);
+        
+        // set the selected button style
+        String selectedBtnId = ((Button)event.getSource()).getId();
+        if(selectedBtnId != null){
+            Node n = getChildrenById(parent, selectedBtnId);
+            if(n!=null)
+                n.getStyleClass().add("menu-buttons-selected");
+        }
+        
+        stage.show();
+    }
     
 
     @FXML
@@ -157,5 +258,9 @@ public abstract class AbstractController implements Initializable{
     public void setProgressVisible(boolean visible){
     	if(progressPane != null)
     		progressPane.setVisible(visible);
+    }
+    
+    public BooleanProperty dataloadingProperty(){
+        return dataloading;
     }
 }

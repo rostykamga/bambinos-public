@@ -5,16 +5,14 @@ import com.lesbambinos.entity.Classe;
 import com.lesbambinos.entity.Installment;
 import com.lesbambinos.entity.InstallmentPerLevel;
 import com.lesbambinos.entity.InvoiceData;
-import com.lesbambinos.entity.Payment;
 
-import com.lesbambinos.entity.Registration;
 import com.lesbambinos.entity.Student;
 import com.lesbambinos.entity.Tuition;
 import com.lesbambinos.extra.ExtendedCheckBoxTreeCellFactory;
 import com.lesbambinos.extra.ExtendedCheckBoxTreeItem;
 import com.lesbambinos.model.InstallmentPerLevelModel;
 import com.lesbambinos.model.PaymentModel;
-import com.lesbambinos.model.RegistrationModel;
+import com.lesbambinos.model.StudentModel;
 import com.lesbambinos.util.AppUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,26 +53,26 @@ public class CaisseController extends AbstractController {
 
     // =========== Left Pane ================
     @FXML private TextField searchField;
-    @FXML private TableColumn<Registration, String> studentColumn;
-    @FXML private TableView<Registration> studentTableview;
+    @FXML private TableColumn<Student, String> studentColumn;
+    @FXML private TableView<Student> studentTableview;
     
     //============== Middle pane ==========================
     @FXML private TextField matriculeField, studentName, classeField,  partialTotalField;
     @FXML private Button paymentButton, cancelButton;
     @FXML private TreeView  tuitionTree;
     
-    private final ObjectProperty<Registration> selectedRegistration = new SimpleObjectProperty<>();
-    private final ObservableList<Registration> REGISTRATIONLIST = FXCollections.observableArrayList();
+    private final ObjectProperty<Student> selectedStudent = new SimpleObjectProperty<>();
+    private final ObservableList<Student> REGISTRATIONLIST = FXCollections.observableArrayList();
     private CheckBoxTreeItem root;
     
-    private RegistrationModel registrationModel;
+    private StudentModel studentModel;
     private InstallmentPerLevelModel instPerLevelModel;
     private PaymentModel paymentModel;
    
     @Override
     protected void initUI() {
         
-        registrationModel = new RegistrationModel();
+        studentModel = new StudentModel();
         instPerLevelModel = new InstallmentPerLevelModel();
         paymentModel = new PaymentModel();
         
@@ -84,31 +82,31 @@ public class CaisseController extends AbstractController {
         tuitionTree.setDisable(true);
 
         
-        studentColumn.setCellValueFactory((TableColumn.CellDataFeatures<Registration, String> p)
+        studentColumn.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> p)
                 -> new SimpleStringProperty(
-                        p.getValue().getStudent().getRegistrationNumber()+" "+
-                        p.getValue().getStudent().getNames()+" "+
-                        p.getValue().getStudent().getSurnames()));
+                        p.getValue().getRegistrationNumber()+" "+
+                        p.getValue().getNames()+" "+
+                        p.getValue().getSurnames()));
         
-        matriculeField.disableProperty().bind(Bindings.isNull(selectedRegistration));
-        studentName.disableProperty().bind(Bindings.isNull(selectedRegistration));
-        classeField.disableProperty().bind(Bindings.isNull(selectedRegistration));
-        partialTotalField.disableProperty().bind(Bindings.isNull(selectedRegistration));
+        matriculeField.disableProperty().bind(Bindings.isNull(selectedStudent));
+        studentName.disableProperty().bind(Bindings.isNull(selectedStudent));
+        classeField.disableProperty().bind(Bindings.isNull(selectedStudent));
+        partialTotalField.disableProperty().bind(Bindings.isNull(selectedStudent));
         
-        paymentButton.disableProperty().bind(Bindings.isNull(selectedRegistration));
-        cancelButton.disableProperty().bind(Bindings.isNull(selectedRegistration));
+        paymentButton.disableProperty().bind(Bindings.isNull(selectedStudent));
+        cancelButton.disableProperty().bind(Bindings.isNull(selectedStudent));
         
         studentTableview.setItems(REGISTRATIONLIST);
-        selectedRegistration.addListener((ObservableValue<? extends Registration> observable, Registration oldValue, Registration newValue) -> {
-            showRegistrationDetails(newValue);
+        selectedStudent.addListener((ObservableValue<? extends Student> observable, Student oldValue, Student newValue) -> {
+            showStudentDetails(newValue);
         });
         
-        studentTableview.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Registration> observable, Registration oldValue, Registration newValue) -> {
-            selectedRegistration.set(newValue);
+        studentTableview.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Student> observable, Student oldValue, Student newValue) -> {
+            selectedStudent.set(newValue);
         });
         
         searchField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-           REGISTRATIONLIST.setAll(registrationModel.find(newValue));
+           REGISTRATIONLIST.setAll(studentModel.find(newValue));
         });
     }
     
@@ -119,27 +117,26 @@ public class CaisseController extends AbstractController {
      * registration object, 
      * Then it finds all the tuition installement tied to the registration classe level, and display them
      * as checkboxtreeitem
-     * @param reg 
+     * @param student 
      */
-    private void showRegistrationDetails(Registration reg){
+    private void showStudentDetails(Student student){
       
         // Always need to clear the root
         clearNode(root);
         
         //If nothing is selected, then reset UI
-        if(reg == null){
+        if(student == null){
             resetStudentFields();
             root.setSelected(false);
             tuitionTree.setDisable(true);
         }
         else{
             tuitionTree.setDisable(false);
-            Student std = reg.getStudent();
-            matriculeField.setText(std.getRegistrationNumber());
-            studentName.setText(std.getNames() + " "+ std.getSurnames());
-            classeField.setText(reg.getClasse().getShortname());
+            matriculeField.setText(student.getRegistrationNumber());
+            studentName.setText(student.getNames() + " "+ student.getSurnames());
+            classeField.setText(student.getClassroom().getShortname());
             partialTotalField.setText("0.00");
-            buildTuitionPaymentTree(reg.getClasse(), std);
+            buildTuitionPaymentTree(student.getClassroom(), student);
         }
     }
     
@@ -314,13 +311,13 @@ public class CaisseController extends AbstractController {
         if (!REGISTRATIONLIST.isEmpty()) {
             REGISTRATIONLIST.clear();
         }
-        REGISTRATIONLIST.addAll((ObservableList<Registration>)data);
+        REGISTRATIONLIST.addAll((ObservableList<Student>)data);
     }
 
     @Override
     protected Object loadData() {
 //        return null;
-        return registrationModel.getAll();
+        return studentModel.getAll();
     }
 
 
@@ -363,7 +360,7 @@ public class CaisseController extends AbstractController {
             InvoiceController controller = loader.getController();
             double total = Double.parseDouble(partialTotalField.getText());
             double netPayable = Double.parseDouble(partialTotalField.getText());
-            controller.setData(new InvoiceData(selectedRegistration.get(), total, netPayable, selectedInstallments, null));
+            controller.setData(new InvoiceData(selectedStudent.get(), total, netPayable, selectedInstallments, null));
             Scene scene = new Scene(root, 450, 400);
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);

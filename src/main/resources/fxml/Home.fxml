@@ -1,66 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lesbambinos.controller.home.HomeController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lesbambinos.controller.home.HomeController">
    <children>
-      <BorderPane VBox.vgrow="ALWAYS">
-         <top>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" styleClass="hbox-header" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="pageName" styleClass="hbox-title">
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="userLabel" text="Label">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Button mnemonicParsing="false" onAction="#logoutAction" prefHeight="30.0" prefWidth="30.0" styleClass="logout-button">
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-         </top>
-         <left>
-            <VBox fx:id="drawerContainer" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER" />
-         </left>
-         <center>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vbox-panel" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="355.0" VBox.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <ImageView fitHeight="280.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/logo_lesbambinos.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets bottom="40.0" />
-                           </VBox.margin>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+      <ImageView fitHeight="280.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+         <image>
+            <Image url="@../images/logo_lesbambinos.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="40.0" />
+         </VBox.margin>
+      </ImageView>
    </children>
 </VBox>

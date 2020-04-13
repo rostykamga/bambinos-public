@@ -79,6 +79,10 @@ public class Employee implements AbstractEntity {
     public String getFirstName() {
         return firstName;
     }
+    
+    public String getFullname() {
+        return firstName+" "+lastName;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

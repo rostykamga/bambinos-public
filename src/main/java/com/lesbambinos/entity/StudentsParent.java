@@ -6,9 +6,14 @@
 package com.lesbambinos.entity;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,42 +25,66 @@ import javax.persistence.Table;
 public class StudentsParent implements AbstractEntity {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    private StudentsParentPK pk;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
+    
+    @JoinColumn(name = "parentId", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Parent parent;
+    
+    @JoinColumn(name = "studentId", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Student student;
+    
     @Basic(optional = false)
     @Column(name = "parentRole")
     private String parentRole;
-    @Column(name = "fulldescription")
-    private String fulldescription;
     
-
     public StudentsParent() {
-        pk = new StudentsParentPK();
     }
 
-    public StudentsParent(String parentRole, String fulldescription, Parent parent, Student student) {
-        pk = new StudentsParentPK(parent, student);
+    public StudentsParent(Parent parent, Student student, String parentRole) {
+        this.parent = parent;
+        this.student = student;
         this.parentRole = parentRole;
-        this.fulldescription = fulldescription;
     }
 
-    public StudentsParentPK getPk() {
-        return pk;
-    }
-
-    public void setPk(StudentsParentPK pk) {
-        this.pk = pk;
-    }
     
-    
+    public StudentsParent(Long id, Parent parent, Student student, String parentRole) {
+        this.id = id;
+        this.parent = parent;
+        this.student = student;
+        this.parentRole = parentRole;
+    }
 
     @Override
     public Long getId() {
-        return 0L;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public void setParent(Parent parent) {
+        this.parent = parent;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getParentRole() {
@@ -66,33 +95,14 @@ public class StudentsParent implements AbstractEntity {
         this.parentRole = parentRole;
     }
 
-    public String getFulldescription() {
-        return fulldescription;
+    @Override
+    public String toString() {
+        return "StudentsParent{" + "id=" + id + ", parent=" + parent + ", student=" + student + ", parentRole=" + parentRole + '}';
     }
-
-    public void setFulldescription(String fulldescription) {
-        this.fulldescription = fulldescription;
-    }
-
-    public Parent getParent() {
-        return pk.getParent();
-    }
-
-    public void setParent(Parent parent) {
-        this.pk.setParent(parent);
-    }
-
-    public Student getStudent() {
-        return pk.getStudent();
-    }
-
-    public void setStudent(Student student) {
-        this.pk.setStudent(student);
-    }
-
+    
     @Override
     public String asString() {
-        return "StudentsParent{" + "pk=" + pk + ", parentRole=" + parentRole + ", fulldescription=" + fulldescription + '}';
+        return "StudentsParent{" + "id=" + id + ", parent=" + parent + ", student=" + student + ", parentRole=" + parentRole + '}';
     }
     
 }

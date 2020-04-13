@@ -114,7 +114,7 @@ public class InvoiceController implements Initializable {
                 Installment inst = i.getInstPk().getInstallment();
                 
                 Payment payment = new Payment(
-                        new PaymentPK(invoiceData.getRegistration().getStudent(), inst),
+                        new PaymentPK(invoiceData.getStudent(), inst),
                         i.getAmount(),
                         employee,
                         invoice,

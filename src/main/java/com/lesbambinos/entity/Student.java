@@ -7,13 +7,18 @@ package com.lesbambinos.entity;
 
 import java.sql.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -54,6 +59,16 @@ public class Student implements AutocompletedEntity {
     @Lob
     @Column(name = "health2")
     private String health2;
+    
+    @JoinColumn(name = "classroomId", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Classe classroom;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "registrationDate")
+    private java.util.Date registrationDate;
+    
+   
     @Lob
     @Column(name = "picture")
     private byte[] picture;
@@ -61,19 +76,7 @@ public class Student implements AutocompletedEntity {
     public Student() {
     }
 
-    public Student(String registrationNumber, String names, String surnames, boolean sex, Date dateOfBirth, String placeOfBirth, String health1, String health2, byte[] picture) {
-        this.registrationNumber = registrationNumber;
-        this.names = names;
-        this.surnames = surnames;
-        this.sex = sex;
-        this.dateOfBirth = dateOfBirth;
-        this.placeOfBirth = placeOfBirth;
-        this.health1 = health1;
-        this.health2 = health2;
-        this.picture = picture;
-    }
-
-    public Student(Long id, String registrationNumber, String names, String surnames, boolean sex, Date dateOfBirth, String placeOfBirth, String health1, String health2, byte[] picture) {
+    public Student(Long id, String registrationNumber, String names, String surnames, boolean sex, Date dateOfBirth, String placeOfBirth, String health1, String health2, java.util.Date registrationDate, Classe classroom, byte[] picture) {
         this.id = id;
         this.registrationNumber = registrationNumber;
         this.names = names;
@@ -83,6 +86,22 @@ public class Student implements AutocompletedEntity {
         this.placeOfBirth = placeOfBirth;
         this.health1 = health1;
         this.health2 = health2;
+        this.registrationDate = registrationDate;
+        this.classroom = classroom;
+        this.picture = picture;
+    }
+
+    public Student(String registrationNumber, String names, String surnames, boolean sex, Date dateOfBirth, String placeOfBirth, String health1, String health2, java.util.Date registrationDate, Classe classroom, byte[] picture) {
+        this.registrationNumber = registrationNumber;
+        this.names = names;
+        this.surnames = surnames;
+        this.sex = sex;
+        this.dateOfBirth = dateOfBirth;
+        this.placeOfBirth = placeOfBirth;
+        this.health1 = health1;
+        this.health2 = health2;
+        this.registrationDate = registrationDate;
+        this.classroom = classroom;
         this.picture = picture;
     }
 
@@ -108,6 +127,10 @@ public class Student implements AutocompletedEntity {
 
     public String getNames() {
         return names;
+    }
+    
+    public String getFullname() {
+        return names + " " + surnames;
     }
 
     public void setNames(String names) {
@@ -169,7 +192,23 @@ public class Student implements AutocompletedEntity {
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
-   
+
+    public Classe getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classe classroom) {
+        this.classroom = classroom;
+    }
+
+    public java.util.Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(java.util.Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -197,14 +236,15 @@ public class Student implements AutocompletedEntity {
         return this.names+" "+this.surnames;
     }
 
+
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", registrationNumber=" + registrationNumber + ", names=" + names + ", surnames=" + surnames + ", sex=" + sex + ", dateOfBirth=" + dateOfBirth + ", placeOfBirth=" + placeOfBirth + ", health1=" + health1 + ", health2=" + health2 + ", picture=" + picture + '}';
+        return "Student{" + "id=" + id + ", registrationNumber=" + registrationNumber + ", names=" + names + ", surnames=" + surnames + ", sex=" + sex + ", dateOfBirth=" + dateOfBirth + ", placeOfBirth=" + placeOfBirth + ", health1=" + health1 + ", health2=" + health2 + ", registrationDate=" + registrationDate + ", classroom=" + classroom + ", picture=" + picture + '}';
     }
     
     @Override
     public String asString() {
-        return "Student{" + "id=" + id + ", registrationNumber=" + registrationNumber + ", names=" + names + ", surnames=" + surnames + ", sex=" + sex + ", dateOfBirth=" + dateOfBirth + ", placeOfBirth=" + placeOfBirth + ", health1=" + health1 + ", health2=" + health2 + ", picture=" + picture + '}';
+        return "Student{" + "id=" + id + ", registrationNumber=" + registrationNumber + ", names=" + names + ", surnames=" + surnames + ", sex=" + sex + ", dateOfBirth=" + dateOfBirth + ", placeOfBirth=" + placeOfBirth + ", health1=" + health1 + ", health2=" + health2 + ", registrationDate=" + registrationDate + ", classroom=" + classroom + ", picture=" + picture + '}';
     }
     
 }

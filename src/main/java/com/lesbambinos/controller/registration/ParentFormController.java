@@ -28,6 +28,7 @@ public class ParentFormController extends FormController implements Autocompleta
     
     private AutocompleteTextField nameField;
     private ParentModel parentModel = new ParentModel();
+    private Parent existingParent;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,21 +97,29 @@ public class ParentFormController extends FormController implements Autocompleta
     @Override
     protected void doSave() {
         
-        if(entity ==null){
+        if(entity == null){
             Parent parent =  new Parent(
-                        nameField.getText(),
-                        professionField.getText(),
-                        phoneField1.getText(),
-                        phoneField2.getText(),
-                        religionField.getText(),
-                        placeField.getText()
-                );
-            entity = new StudentsParent(roleCombobox.getValue(), "", parent, null);
+                nameField.getText(),
+                professionField.getText(),
+                phoneField1.getText(),
+                phoneField2.getText(),
+                religionField.getText(),
+                placeField.getText()
+            );
+            
+            if(existingParent != null)
+                parent.setId(existingParent.getId());
+            
+            entity = new StudentsParent(parent, null, roleCombobox.getValue());
         }
         else{
             StudentsParent stdP = (StudentsParent)entity;
-            stdP.setFulldescription("");
+            
             stdP.setParentRole(roleCombobox.getValue());
+            
+            if(existingParent != null)
+                stdP.setParent(existingParent);
+            
             stdP.getParent().setFullname(nameField.getText());
             stdP.getParent().setPhone1(phoneField1.getText());
             stdP.getParent().setPhone2(phoneField2.getText());
@@ -135,6 +144,9 @@ public class ParentFormController extends FormController implements Autocompleta
         if(entity != null){
             StudentsParent sdParent = (StudentsParent)entity;
             sdParent.setParent(parent);
+        }
+        else{
+            existingParent = parent;
         }
         
         //nameField.setAutocomplete(false);

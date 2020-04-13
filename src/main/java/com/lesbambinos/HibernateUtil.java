@@ -57,6 +57,7 @@ public class HibernateUtil {
             
             testLoadEntities();
         } catch (Exception ex) {
+        	ex.printStackTrace();
             return false;
             
         }
