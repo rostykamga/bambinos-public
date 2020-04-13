@@ -138,6 +138,21 @@
   -fx-font-size : 14;
 }
 
+.approved{
+    -fx-background-color: lime;
+    -fx-text-fill: darkgreen;
+}
+
+.pending{
+    -fx-background-color: rgb(247, 247, 0);
+    -fx-text-fill: #9b870c;
+}
+
+.rejected{
+    -fx-background-color: #ffcccb;
+    -fx-text-fill: darkred;
+}
+
 
 
 

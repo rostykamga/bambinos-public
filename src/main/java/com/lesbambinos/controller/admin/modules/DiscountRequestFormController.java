@@ -32,18 +32,15 @@ public class DiscountRequestFormController extends FormController {
         cancelButton.setVisible(false);
         cancelButton.setManaged(false);
         
-        statusField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(DiscountRequest.STATUS.ACCEPTED.equalsIgnoreCase(newValue)){
-                    statusField.getStyleClass().add("approved");
-                }
-                if(DiscountRequest.STATUS.PENDING.equalsIgnoreCase(newValue)){
-                    statusField.getStyleClass().add("pending");
-                }
-                if(DiscountRequest.STATUS.REJECTED.equalsIgnoreCase(newValue)){
-                    statusField.getStyleClass().add("rejected");
-                }
+        statusField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if(DiscountRequest.STATUS.ACCEPTED.equalsIgnoreCase(newValue)){
+                statusField.getStyleClass().add("approved");
+            }
+            if(DiscountRequest.STATUS.PENDING.equalsIgnoreCase(newValue)){
+                statusField.getStyleClass().add("pending");
+            }
+            if(DiscountRequest.STATUS.REJECTED.equalsIgnoreCase(newValue)){
+                statusField.getStyleClass().add("rejected");
             }
         });
     }

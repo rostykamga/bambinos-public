@@ -35,8 +35,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class DiscountRequestController extends AdminModuleController {
 
@@ -94,8 +96,10 @@ public class DiscountRequestController extends AdminModuleController {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
                 
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("fixedAmount"));
+        amountColumn.setCellFactory((TableColumn<DiscountRequest, Double> param) -> new EmptyfiedZeroTableCell());
         
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        statusColumn.setCellFactory((TableColumn<DiscountRequest, String> param) -> new StyledTableCell());
         
         requestDateColumn.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
         
@@ -182,7 +186,32 @@ public class DiscountRequestController extends AdminModuleController {
    }
    
    @FXML protected void rejectAction(ActionEvent event){
-       discountRequestsTableview.getSelectionModel().clearSelection();
+       DiscountRequest request = discountRequestsTableview.getSelectionModel().getSelectedItem();
+       
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Rejet d'une demande de rabais");
+        alert.setContentText("Etes-vous sûre de rejeter la demande de rabais\nde l'élève "
+                +request.getStudent().getFullname()+
+                " au motif "+request.getDescription()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try{
+                request.setFixedAmount(0);
+                request.setStatus(DiscountRequest.STATUS.REJECTED);
+                request.setValidationDate(new Date());
+                request.setValidator(BambinosSecurityManager.getAuthenticatedEmployee().getEmployeeEntity());
+                
+                discountRequestModel.update(request);
+                discountRequestsTableview.refresh();
+                discountRequestsTableview.getSelectionModel().clearSelection();
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+                showError("erreur", "Une erreur est survenue lors de l'opération ", ex.getMessage());
+            }
+        }
    }
    
    @FXML protected void detailAction(ActionEvent event){
@@ -208,4 +237,33 @@ public class DiscountRequestController extends AdminModuleController {
         discountRequestsTableview.getSelectionModel().clearSelection();
     }
 
+}
+
+class EmptyfiedZeroTableCell extends TableCell<DiscountRequest, Double>{
+    
+
+    @Override
+    protected void updateItem(Double item, boolean empty) {
+        super.updateItem(item, empty);
+        setText(empty || item == 0? "" : String.valueOf(item));
+    }
+}
+
+class StyledTableCell extends TableCell<DiscountRequest, String>{
+    
+
+    @Override
+    protected void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+        setText(empty || item.trim().isEmpty()? "" : item);
+        if(DiscountRequest.STATUS.ACCEPTED.equalsIgnoreCase(item)){
+                getStyleClass().add("approved");
+            }
+            if(DiscountRequest.STATUS.PENDING.equalsIgnoreCase(item)){
+                getStyleClass().add("pending");
+            }
+            if(DiscountRequest.STATUS.REJECTED.equalsIgnoreCase(item)){
+                getStyleClass().add("rejected");
+            }
+    }
 }

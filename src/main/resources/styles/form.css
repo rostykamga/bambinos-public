@@ -71,11 +71,11 @@
 }
 
 .pending{
-    -fx-background-color: lightgoldenrodyellow;
-    -fx-text-fill: darkcyan;
+    -fx-background-color: rgb(247, 247, 0);
+    -fx-text-fill: #9b870c;
 }
 
 .rejected{
-    -fx-background-color: lightcoral;
+    -fx-background-color: #ffcccb;
     -fx-text-fill: darkred;
 }
