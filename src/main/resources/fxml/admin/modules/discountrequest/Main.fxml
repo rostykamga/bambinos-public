@@ -35,7 +35,7 @@
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="showPendingRadio" mnemonicParsing="false" onAction="#showPendingAction" text="En Attente" toggleGroup="$group1" />
-                  <RadioButton fx:id="showAcceptedRadio" mnemonicParsing="false" onAction="#showAcceptedAction" text="Acceptées" toggleGroup="$group1" />
+                  <RadioButton fx:id="showAcceptedRadio" mnemonicParsing="false" onAction="#showAcceptedAction" text="Accordées" toggleGroup="$group1" />
                   <RadioButton fx:id="showRejectedRadio" mnemonicParsing="false" onAction="#showRejectedAction" text="Rejetées" toggleGroup="$group1" />
                </children>
             </HBox>

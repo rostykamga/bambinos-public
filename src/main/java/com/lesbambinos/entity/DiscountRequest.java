@@ -6,6 +6,7 @@
 package com.lesbambinos.entity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,6 +47,9 @@ public class DiscountRequest implements AbstractEntity{
     @Column(name = "status")
     private String status;
     
+    @Column(name = "finalized")
+    private boolean finalized;
+    
     @OneToOne
     @JoinColumn(name = "studentId")
     private Student student;
@@ -76,7 +80,7 @@ public class DiscountRequest implements AbstractEntity{
     public DiscountRequest() {
     }
 
-    public DiscountRequest(String description, String status, Student student, Classe classroom, Employee creator, Employee validator, double fixedAmount, Date validationDate, Date requestDate) {
+    public DiscountRequest(String description, String status, boolean finalized, Student student, Classe classroom, Employee creator, Employee validator, double fixedAmount, Date validationDate, Date requestDate) {
         this.description = description;
         this.status = status;
         this.student = student;
@@ -86,6 +90,7 @@ public class DiscountRequest implements AbstractEntity{
         this.fixedAmount = fixedAmount;
         this.validationDate = validationDate;
         this.requestDate = requestDate;
+        this.finalized = finalized;
     }
 
     @Override
@@ -170,9 +175,47 @@ public class DiscountRequest implements AbstractEntity{
         this.requestDate = requestDate;
     }
 
+    public boolean isFinalized() {
+        return finalized;
+    }
+
+    /**
+     * Finilized discount request, cannot longer be modifieed. 
+     * @param finalized 
+     */
+    public void setFinalized(boolean finalized) {
+        this.finalized = finalized;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DiscountRequest other = (DiscountRequest) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String asString() {
-        return "DiscountRequest{" + "id=" + id + ", description=" + description + ", status=" + status + ", student=" + student + ", classroom=" + classroom + ", validator=" + validator + ", fixedAmount=" + fixedAmount + ", validationDate=" + validationDate + ", requestDate=" + requestDate + '}';
+        return "DiscountRequest{" + "id=" + id + ", description=" + description + ", status=" + status + ", finalized=" + finalized + ", student=" + student + ", classroom=" + classroom + ", creator=" + creator + ", validator=" + validator + ", fixedAmount=" + fixedAmount + ", validationDate=" + validationDate + ", requestDate=" + requestDate + '}';
     }
+    
 
 }

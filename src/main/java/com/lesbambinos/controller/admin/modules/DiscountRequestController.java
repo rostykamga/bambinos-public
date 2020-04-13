@@ -1,10 +1,18 @@
 package com.lesbambinos.controller.admin.modules;
 
+import com.lesbambinos.auth.BambinosSecurityManager;
 import com.lesbambinos.controller.FormController;
 import com.lesbambinos.controller.admin.AdminModuleController;
 import com.lesbambinos.entity.DiscountRequest;
+import com.lesbambinos.entity.Uniform;
+import com.lesbambinos.entity.UniformOrder;
 import com.lesbambinos.model.DiscountRequestModel;
+import com.lesbambinos.util.AppUtils;
+import com.lesbambinos.util.DialogUtils;
+import static com.lesbambinos.util.DialogUtils.showError;
 import java.net.URL;
+import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -15,11 +23,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -52,6 +66,8 @@ public class DiscountRequestController extends AdminModuleController {
     private Predicate<DiscountRequest> showAcceptedPredicate;
     private Predicate<DiscountRequest> showRejectedPredicate;
     private Predicate<DiscountRequest> showPendingPredicate;
+    
+    private final BooleanProperty requestIsFinalized = new SimpleBooleanProperty(false);
     
    
     @Override
@@ -88,9 +104,13 @@ public class DiscountRequestController extends AdminModuleController {
         
         validationDateColumn.setCellValueFactory(new PropertyValueFactory<>("validationDate"));
         
-        acceptButton.disableProperty().bind(Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty()));
-        rejectButton.disableProperty().bind(Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty()));
+        acceptButton.disableProperty().bind(Bindings.or(requestIsFinalized, Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty())));
+        rejectButton.disableProperty().bind(Bindings.or(requestIsFinalized, Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty())));
         detailsButton.disableProperty().bind(Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty()));
+        
+        discountRequestsTableview.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends DiscountRequest> observable, DiscountRequest oldValue, DiscountRequest newValue) -> {
+            requestIsFinalized.set(newValue == null? true : newValue.isFinalized());
+        });
         
         discountRequestsTableview.setItems(filteredList);
         
@@ -127,8 +147,42 @@ public class DiscountRequestController extends AdminModuleController {
    }
    
    @FXML protected void acceptAction(ActionEvent event){
+       
+       DiscountRequest request = discountRequestsTableview.getSelectionModel().getSelectedItem();
+       
+       String input = DialogUtils.prompt("Montant du rabais", "Veuillez entrer le montant du rabais à accorder", "Montant: ", request.getFixedAmount()+"");
+       
+       if(!AppUtils.isValidPositiveDouble(input)){
+           DialogUtils.showError("Erreur", "Entrée invalide !", "Le montant du rabais accordé doit être supérieur à zero");
+           return;
+       }
+       
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Approbation d'une demande de rabais");
+        alert.setContentText("Etes-vous sûre de vouloir accorder une demande de rabais\nde "+input+" à l'élève "+request.getStudent().getFullname()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try{
+                request.setFixedAmount(Double.parseDouble(input));
+                request.setStatus(DiscountRequest.STATUS.ACCEPTED);
+                request.setValidationDate(new Date());
+                request.setValidator(BambinosSecurityManager.getAuthenticatedEmployee().getEmployeeEntity());
+                
+                discountRequestModel.update(request);
+                discountRequestsTableview.refresh();
+                discountRequestsTableview.getSelectionModel().clearSelection();
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+                showError("erreur", "Une erreur est survenue lors de l'opération ", ex.getMessage());
+            }
+        }
    }
+   
    @FXML protected void rejectAction(ActionEvent event){
+       discountRequestsTableview.getSelectionModel().clearSelection();
    }
    
    @FXML protected void detailAction(ActionEvent event){
@@ -144,13 +198,14 @@ public class DiscountRequestController extends AdminModuleController {
 
     @Override
     protected String getModuleName() {
-        return "Gestion des Rabais";
+        return "Demandes des Rabais";
     }
 
     @Override
     protected void _onDataLoaded(Object data) {
         ObservableList<DiscountRequest> list = (ObservableList<DiscountRequest>)data;
         DISCOUNT_REQUESTS.setAll(list);
+        discountRequestsTableview.getSelectionModel().clearSelection();
     }
 
 }

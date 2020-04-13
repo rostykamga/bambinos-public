@@ -69,8 +69,8 @@ public class DiscountRequestFormController extends FormController {
             amountField.setText(request.getFixedAmount()+"");
             statusField.setText(request.getStatus());
             requestDateField.setText(String.valueOf(request.getRequestDate()));
-            validatorField.setText(String.valueOf(request.getCreator().getFullname()));
-            validationDateField.setText(String.valueOf(request.getValidationDate()));
+            validatorField.setText(String.valueOf(request.getValidator() == null ? "" : request.getValidator().getFullname()));
+            validationDateField.setText(String.valueOf(request.getValidationDate() == null? "" : request.getValidationDate()));
         }
     }
     

@@ -45,6 +45,7 @@ public class DiscountRequestModel extends AbstractEntityModel<DiscountRequest> {
         previous.setStudent(updated.getStudent());
         previous.setValidationDate(updated.getValidationDate());
         previous.setValidator(updated.getValidator());
+        previous.setFinalized(updated.isFinalized());
     }
 
     @Override
