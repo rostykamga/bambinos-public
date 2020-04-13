@@ -1,11 +1,14 @@
 package com.lesbambinos.controller.admin.modules;
 
+import com.lesbambinos.controller.FormController;
 import com.lesbambinos.controller.admin.AdminModuleController;
 import com.lesbambinos.entity.DiscountRequest;
 import com.lesbambinos.model.DiscountRequestModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DiscountRequestController extends AdminModuleController {
@@ -89,6 +93,21 @@ public class DiscountRequestController extends AdminModuleController {
         detailsButton.disableProperty().bind(Bindings.isNull(discountRequestsTableview.getSelectionModel().selectedItemProperty()));
         
         discountRequestsTableview.setItems(filteredList);
+        
+        discountRequestsTableview.setRowFactory( tv -> {
+            TableRow<DiscountRequest> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    try {
+                        detailAction(new ActionEvent(event.getSource(), event.getTarget()));
+                    } catch (Exception ex) {
+                        Logger.getLogger(DiscountRequestController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            return row ;
+        });
+
     }
     
     
@@ -111,7 +130,9 @@ public class DiscountRequestController extends AdminModuleController {
    }
    @FXML protected void rejectAction(ActionEvent event){
    }
+   
    @FXML protected void detailAction(ActionEvent event){
+       FormController.showForm("admin/modules/discountrequest/Form.fxml", discountRequestsTableview.getSelectionModel().getSelectedItem());
    }
    
 

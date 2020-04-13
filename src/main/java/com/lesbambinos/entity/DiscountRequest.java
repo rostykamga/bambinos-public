@@ -65,11 +65,11 @@ public class DiscountRequest implements AbstractEntity{
     @Column(name = "fixedAmount")
     private double fixedAmount;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "validationDate")
     private Date validationDate;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "requestDate")
     private Date requestDate;
 
