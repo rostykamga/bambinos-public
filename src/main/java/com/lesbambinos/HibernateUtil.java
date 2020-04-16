@@ -1,6 +1,5 @@
 package com.lesbambinos;
 
-import com.lesbambinos.config.AppConfig;
 
 import com.lesbambinos.util.AppUtils;
 import java.util.Properties;
@@ -34,21 +33,17 @@ public class HibernateUtil {
 
     public static boolean setSessionFactory() {
         try {
-            AppConfig config = AppConfig.getCurrentConfig();
-            if(config == null)
-                return false;
-            
             Properties properties = new Properties();
             
-            properties.setProperty("hibernate.dialect", config.getDialect());
-            properties.setProperty("hibernate.connection.driver_class", config.getDriver());
+            properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+            properties.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
             
-            properties.setProperty("hibernate.connection.url", config.getUrl());
+            properties.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/bambinos");
             
-            properties.setProperty("hibernate.connection.username", config.getUser());
+            properties.setProperty("hibernate.connection.username", "root");
             
-            if(!AppUtils.isEmptyOrNullString(config.getPassword()))
-                properties.setProperty("hibernate.connection.password", config.getPassword());
+           
+            properties.setProperty("hibernate.connection.password", "rostand");
             
             sessionFactory = new Configuration()
                     .addProperties(properties)

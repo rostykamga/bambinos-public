@@ -40,11 +40,14 @@
 }
 
 .search-field {
-    -fx-background-color: rgba(23, 169, 168, 1);
-    -fx-text-fill: rgba(255, 255, 247, 1);
+    -fx-background-color: white;
+    /*-fx-background-color: rgba(23, 169, 168, 1);*/
+    -fx-text-fill: darkgreen;
+    /*-fx-text-fill: rgba(255, 255, 247, 1);*/
     
     -fx-background-image: url('../images/search.png');
     -fx-background-repeat: no-repeat;
+    -fx-background-height: 95%;
     -fx-background-position: right center;
     -fx-font-size: 18px;
     -fx-background-size: 12%;

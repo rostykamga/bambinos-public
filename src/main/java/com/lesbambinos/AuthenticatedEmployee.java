@@ -1,4 +1,4 @@
-package com.lesbambinos.auth;
+package com.lesbambinos;
 
 
 import com.lesbambinos.entity.Employee;

@@ -13,25 +13,10 @@
         <mapping class="com.lesbambinos.entity.Cycle" />
         <mapping class="com.lesbambinos.entity.Level" />
         <mapping class="com.lesbambinos.entity.Parent" />
-        <mapping class="com.lesbambinos.entity.Payment" />
-        <mapping class="com.lesbambinos.entity.PaymentPK" />
-        <mapping class="com.lesbambinos.entity.Resource" />
         <mapping class="com.lesbambinos.entity.Student" />
         <mapping class="com.lesbambinos.entity.StudentsParent" />
         <mapping class="com.lesbambinos.entity.Subsystem" />
-        <mapping class="com.lesbambinos.entity.Tuition" />
-        <mapping class="com.lesbambinos.entity.Installment" />
-        <mapping class="com.lesbambinos.entity.InstallmentPerLevel" />
-        <mapping class="com.lesbambinos.entity.InstallmentPerLevelPK" />
         <mapping class="com.lesbambinos.entity.Employee" />
         <mapping class="com.lesbambinos.entity.EmployeeLog" />
-        <mapping class="com.lesbambinos.entity.Invoice" />
-        <mapping class="com.lesbambinos.entity.Attachment" />
-        <mapping class="com.lesbambinos.entity.DiscountRequest" />
-        <mapping class="com.lesbambinos.entity.Uniform" />
-        <mapping class="com.lesbambinos.entity.UniformOrder" />
-        <mapping class="com.lesbambinos.entity.UniformSize" />
-        <mapping class="com.lesbambinos.entity.UniformType" />
-        <mapping class="com.lesbambinos.entity.UniformPurchase" />
     </session-factory>
 </hibernate-configuration>

@@ -5,7 +5,6 @@
  */
 package com.lesbambinos.controller;
 
-import com.lesbambinos.config.AppConfig;
 import com.lesbambinos.entity.AbstractEntity;
 import java.io.IOException;
 import java.net.URL;
@@ -113,7 +112,7 @@ public abstract class FormController implements Initializable{
     public static AbstractEntity showForm(String form, AbstractEntity entity){
         
         try {
-            FXMLLoader loader = new FXMLLoader(AppConfig.class.getResource("/fxml/"+form));
+            FXMLLoader loader = new FXMLLoader(FormController.class.getResource("/fxml/"+form));
             Parent root = loader.load();
             FormController controller = loader.getController();
             controller.setData(entity);

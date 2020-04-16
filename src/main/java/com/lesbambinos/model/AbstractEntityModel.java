@@ -1,12 +1,12 @@
 package com.lesbambinos.model;
 
+import com.lesbambinos.BambinosSecurityManager;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
 
 import com.lesbambinos.HibernateUtil;
-import com.lesbambinos.auth.BambinosSecurityManager;
 import com.lesbambinos.entity.AbstractEntity;
 import com.lesbambinos.entity.Employee;
 import com.lesbambinos.entity.EmployeeLog;
